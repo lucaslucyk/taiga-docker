@@ -1,2 +1,7 @@
 db-data
 static-data
+
+# local
+notebooks/
+env/
+.env

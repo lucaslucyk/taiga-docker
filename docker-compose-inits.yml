@@ -1,17 +1,17 @@
 version: "3.5"
 
-x-environment:
-  &default-back-environment
-  POSTGRES_DB: taiga
-  POSTGRES_USER: taiga
-  POSTGRES_PASSWORD: taiga
-  POSTGRES_HOST: taiga-db
-  TAIGA_SECRET_KEY: "taiga-back-secret-key"
-  # these rabbitmq settings should be the same as
-  # in taiga-rabbitmq and taiga-events services
-  RABBITMQ_USER: taiga
-  RABBITMQ_PASS: taiga
-  CELERY_ENABLED: "False"
+# x-environment:
+#   &default-back-environment
+#   POSTGRES_DB: taiga
+#   POSTGRES_USER: taiga
+#   POSTGRES_PASSWORD: taiga
+#   POSTGRES_HOST: taiga-db
+#   TAIGA_SECRET_KEY: "taiga-back-secret-key"
+#   # these rabbitmq settings should be the same as
+#   # in taiga-rabbitmq and taiga-events services
+#   RABBITMQ_USER: taiga
+#   RABBITMQ_PASS: taiga
+#   CELERY_ENABLED: "False"
 
 x-volumes:
   &default-back-volumes
@@ -22,7 +22,9 @@ x-volumes:
 services:
   taiga-manage:
     image: taigaio/taiga-back:latest
-    environment: *default-back-environment
+    # environment: *default-back-environment
+    env_file:
+      - .env
     depends_on:
       - taiga-db
     entrypoint: "python manage.py"
